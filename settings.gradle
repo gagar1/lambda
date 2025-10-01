@@ -1,0 +1,4 @@
+rootProject.name = 'payment-processor'
+include 'acceptance'
+include 'contract'
+include 'acceptance:contract'

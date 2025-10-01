@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'com.uk.ls.insurance.service'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    awsSdkVersion = '2.33.10'
+    sqsSdkVersion = '1.12.791'
+    assertJVersion = '3.27.4'
+    jsonAssertjVersion = '3.0.25'
+    moshiVersion = '1.15.2'
+    daggerVersion = '2.57.1'
+    log4jVersion = '2.25.1'
+    retrofitVersion = '3.0.0'
+    cucumberVersion = '7.28.2'
+    springVersion = '6.2.11'
+    jsonSmartVersion = '2.6.0'
+    junitJupiterVersion = '5.13.4'
+    junitPlatformVersion = '1.13.4'
+}
+
+sourceSets {
+    acceptance {
+        compileClasspath += sourceSets.test.runtimeClasspath
+        runtimeClasspath += sourceSets.test.runtimeClasspath
+    }
+}
+
+dependencies {
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation platform("org.apache.logging.log4j:log4j-bom:$log4jVersion")
+    implementation platform("software.amazon.awssdk:bom:$awsSdkVersion")
+    implementation platform("uk.co.capitalone.services:secret-retriever-bom:9.9.2")
+    implementation "com.amazonaws:aws-java-sdk-sqs:$sqsSdkVersion"
+    implementation "software.amazon.awssdk:lambda"
+    implementation "software.amazon.awssdk:dynamodb"
+    implementation "software.amazon.awssdk:url-connection-client"
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:5.0.0"
+}
+
+test {
+    useJUnitPlatform()
+}

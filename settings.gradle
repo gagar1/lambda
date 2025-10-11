@@ -1,1 +1,9 @@
+pluginManagement {
+    // This is the CRITICAL block that allows finding plugins by ID
+    repositories {
+        gradlePluginPortal() 
+        // You can also include Maven Central or others if needed
+        mavenCentral()
+    }
+}
 rootProject.name = 'payment-processor'

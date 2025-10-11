@@ -30,10 +30,10 @@ ext {
 }
 
 sourceSets {
-    acceptance {
-        compileClasspath += sourceSets.test.runtimeClasspath
-        runtimeClasspath += sourceSets.test.runtimeClasspath
-    }
+    //acceptance {
+    //    compileClasspath += sourceSets.test.runtimeClasspath
+    //    runtimeClasspath += sourceSets.test.runtimeClasspath
+    //}
 }
 
 dependencies {

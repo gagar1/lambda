@@ -29,13 +29,6 @@ ext {
     junitPlatformVersion = '1.13.4'
 }
 
-sourceSets {
-    //acceptance {
-    //    compileClasspath += sourceSets.test.runtimeClasspath
-    //    runtimeClasspath += sourceSets.test.runtimeClasspath
-    //}
-}
-
 dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation platform("org.apache.logging.log4j:log4j-bom:$log4jVersion")

@@ -1,6 +1,9 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'checkstyle'
+    id 'pmd'
+    id 'com.diffplug.spotless' version '6.26.1' 
 }
 
 group = 'com.uk.ls.insurance.service'
@@ -51,4 +54,57 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+// --- Checkstyle Configuration ---
+checkstyle {
+    toolVersion = '10.12.5' // Specify tool version
+    configFile = file("config/checkstyle/checkstyle.xml") // Point to your config file
+    maxErrors = 0
+    maxWarnings = 0
+}
+
+// Ensure the 'checkstyle' task runs as part of the main 'check' lifecycle
+tasks.withType(Checkstyle) {
+    // Assuming you use 'main' and 'test' source sets
+    group = 'verification'
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+// --- PMD Configuration ---
+pmd {
+    toolVersion = '6.55.0' // Specify tool version
+    rulesetFiles = files("config/pmd/pmd-ruleset.xml") // Point to your ruleset
+    ruleSets = [] // Empty to use the files above
+    // Exclude test sources from PMD if you only want to check main code
+    ignoreFailures = false
+}
+
+// Ensure the 'pmd' task runs as part of the main 'check' lifecycle
+tasks.withType(Pmd) {
+    group = 'verification'
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+// --- Spotless Configuration ---
+spotless {
+    java {
+        // Enforce the Google Java Format
+        googleJavaFormat()
+        // OR enforce Eclipse formatting with a custom config file
+        // eclipse().configFile('config/spotless/eclipse-formatter.xml')
+
+        // Ensure all files have a license header
+        licenseHeaderFile project.file('config/spotless/license-header.txt')
+
+        // Tidy up imports (optional but recommended)
+        removeUnusedImports()
+    }
+
+    // You can also add configuration for other languages like Kotlin or Gradle files
 }
